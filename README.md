@@ -1,2 +1,2 @@
-# Actions-ArrowOS-Builder
-Build Arrow OS using GitHub Actions
+# ArrowOS Builder
+Build ArrowOS using GitHub Actions!
