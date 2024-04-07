@@ -74,6 +74,10 @@ jobs:
         sudo bash setup/android_build_env.sh
         sed -i 's/cd -/cd ../g' setup/install_android_sdk.sh
         sudo bash setup/install_android_sdk.sh
+        mkdir ${{ steps.pwd.outputs.workspace-folder }}/ccache
+        export USE_CCACHE=1
+        export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
+        ccache -M 50G
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Clone and sync Lineage sources
