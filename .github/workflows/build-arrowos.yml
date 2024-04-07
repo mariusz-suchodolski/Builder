@@ -68,14 +68,12 @@ jobs:
     - name: Prepare the build environment
       run: |
         sudo apt install git aria2 -y
+        export JAVA_HOME=$(readlink -f $(which java))
         git clone https://gitlab.com/OrangeFox/misc/scripts
         cd scripts
         sudo bash setup/android_build_env.sh
         sed -i 's/cd -/cd ../g' setup/install_android_sdk.sh
         sudo bash setup/install_android_sdk.sh
-        export JAVA_HOME=$(readlink -f $(which java))
-        git clone https://android.googlesource.com/tools/repo
-        chmod +x repo/repo && mv repo /usr/local/bin/ && ln /usr/local/bin/repo/repo /usr/bin/repo
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Clone and sync ArrowOS sources
