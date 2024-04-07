@@ -73,8 +73,9 @@ jobs:
         sudo bash setup/android_build_env.sh
         sed -i 's/cd -/cd ../g' setup/install_android_sdk.sh
         sudo bash setup/install_android_sdk.sh
+        export JAVA_HOME=$(readlink -f $(which java))
         git clone https://android.googlesource.com/tools/repo
-        chmod +x repo && cp repo /usr/local/bin/
+        chmod +x repo/repo && mv repo /usr/local/bin/ && ln /usr/local/bin/repo/repo /usr/bin/repo
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Clone and sync ArrowOS sources
