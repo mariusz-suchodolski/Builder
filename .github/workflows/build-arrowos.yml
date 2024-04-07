@@ -74,6 +74,10 @@ jobs:
         sudo bash setup/android_build_env.sh
         sed -i 's/cd -/cd ../g' setup/install_android_sdk.sh
         sudo bash setup/install_android_sdk.sh
+        mkdir ../ccache
+        export USE_CCACHE=1
+        export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
+        ccache -M 50G
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Clone and sync ArrowOS sources
@@ -109,9 +113,6 @@ jobs:
       run: |
         cd ${{ steps.pwd.outputs.workspace-folder }}/arrow/
         . build/envsetup.sh
-        export USE_CCACHE=1
-        export CCACHE_DIR=ccache/
-        ccache -M 50G
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}
         m otapackage
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
