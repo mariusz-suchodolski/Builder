@@ -109,6 +109,9 @@ jobs:
       run: |
         cd ${{ steps.pwd.outputs.workspace-folder }}/arrow/
         . build/envsetup.sh
+        export USE_CCACHE=1
+        export CCACHE_DIR=ccache/
+        ccache -M 50G
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}
         m otapackage
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
