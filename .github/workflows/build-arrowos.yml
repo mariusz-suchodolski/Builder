@@ -75,8 +75,8 @@ jobs:
       run: |
         cd ${{ steps.pwd.outputs.workspace-folder }}
         sudo apt install git aria2 ccache -y
-        git clone https://android.googlesource.com/tools/repo
-        chmod u+x repo && sudo mv repo/ /usr/bin/
+        sudo curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
+        sudo chmod a+rx /usr/local/bin/repo
         mkdir ${{ steps.pwd.outputs.workspace-folder }}/ccache
         export USE_CCACHE=1
         export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
