@@ -72,12 +72,11 @@ jobs:
         java-version: 22
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v3.2.1
       
     - name: Prepare the build environment
       run: |
         sudo apt install git aria2 -y
-        export JAVA_HOME=$(readlink -f $(which java))
         mkdir ${{ steps.pwd.outputs.workspace-folder }}/ccache
         export USE_CCACHE=1
         export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
