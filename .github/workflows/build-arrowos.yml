@@ -64,16 +64,20 @@ jobs:
         cd workspace
         echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
       id: pwd
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'oracle'
+        java-version: 22
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2.0.10
+      
     - name: Prepare the build environment
       run: |
         sudo apt install git aria2 -y
         export JAVA_HOME=$(readlink -f $(which java))
-        git clone https://gitlab.com/OrangeFox/misc/scripts
-        cd scripts
-        sudo bash setup/android_build_env.sh
-        sed -i 's/cd -/cd ../g' setup/install_android_sdk.sh
-        sudo bash setup/install_android_sdk.sh
         mkdir ${{ steps.pwd.outputs.workspace-folder }}/ccache
         export USE_CCACHE=1
         export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
@@ -85,7 +89,7 @@ jobs:
         cd ${{ steps.pwd.outputs.workspace-folder }}
         mkdir arrow
         cd arrow
-        repo init -u ${{ github.event.inputs.SYNC_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
+        repo init --depth 1 -u ${{ github.event.inputs.SYNC_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
         repo sync
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
