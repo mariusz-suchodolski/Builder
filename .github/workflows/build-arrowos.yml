@@ -72,7 +72,7 @@ jobs:
         java-version: 22
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2.0.10
+      uses: android-actions/setup-android@v3
       
     - name: Prepare the build environment
       run: |
