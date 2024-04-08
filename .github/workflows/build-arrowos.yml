@@ -70,9 +70,6 @@ jobs:
       with:
         distribution: 'oracle'
         java-version: 22
-
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3.2.1
       
     - name: Prepare the build environment
       run: |
