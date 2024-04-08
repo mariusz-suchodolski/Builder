@@ -73,7 +73,10 @@ jobs:
       
     - name: Prepare the build environment
       run: |
-        sudo apt install git repo aria2 ccache -y
+        cd ${{ steps.pwd.outputs.workspace-folder }}
+        sudo apt install git aria2 ccache -y
+        git clone https://android.googlesource.com/tools/repo
+        chmod u+x repo && mv repo/ /usr/local/bin/
         mkdir ${{ steps.pwd.outputs.workspace-folder }}/ccache
         export USE_CCACHE=1
         export CCACHE_DIR=${{ steps.pwd.outputs.workspace-folder }}/ccache/
