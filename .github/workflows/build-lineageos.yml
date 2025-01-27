@@ -67,7 +67,7 @@ jobs:
 
     - name: Prepare the build environment
       run: |
-        sudo apt install git aria2 -y
+        sudo apt install git aria2 openjdk-21-jdk-headless -y
         export JAVA_HOME=$(readlink -f $(which java))
         git clone https://gitlab.com/OrangeFox/misc/scripts
         cd scripts
